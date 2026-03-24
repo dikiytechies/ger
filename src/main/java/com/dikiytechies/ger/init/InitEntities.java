@@ -1,0 +1,11 @@
+package com.dikiytechies.ger.init;
+
+import com.dikiytechies.ger.GerMain;
+import net.minecraft.entity.EntityType;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+
+public class InitEntities {
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(
+            ForgeRegistries.ENTITIES, GerMain.MOD_ID);
+}

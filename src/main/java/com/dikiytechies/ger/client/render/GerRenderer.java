@@ -2,8 +2,6 @@ package com.dikiytechies.ger.client.render;
 
 import com.dikiytechies.ger.GerMain;
 import com.dikiytechies.ger.entity.GerStandEntity;
-import com.github.standobyte.jojo.JojoMod;
-import com.github.standobyte.jojo.client.render.entity.model.stand.GoldExperienceModel;
 import com.github.standobyte.jojo.client.render.entity.model.stand.StandEntityModel;
 import com.github.standobyte.jojo.client.render.entity.model.stand.StandModelRegistry;
 import com.github.standobyte.jojo.client.render.entity.renderer.stand.StandEntityRenderer;

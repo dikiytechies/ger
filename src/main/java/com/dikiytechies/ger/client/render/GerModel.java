@@ -1,7 +1,6 @@
 package com.dikiytechies.ger.client.render;
 
 import com.dikiytechies.ger.entity.GerStandEntity;
-import com.github.standobyte.jojo.client.render.entity.model.stand.GoldExperienceModel;
 import com.github.standobyte.jojo.client.render.entity.model.stand.HumanoidStandModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 

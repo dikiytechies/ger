@@ -2,15 +2,18 @@ buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net' }
         mavenCentral()
+        maven { url = "https://repo.spongepowered.org/maven" }
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
+apply plugin: 'org.spongepowered.mixin'
 
 version = "${addon_version}"
 group = 'com.dikiytechies.ger' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -143,11 +146,15 @@ dependencies {
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
+    annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
     implementation fg.deobf("standobyte.jojo:JJBA-RipplesOfThePast:${main_mod_version}")
     compileOnly 'team.unnamed:mocha:3.0.0'
 }
 
+mixin {
+    add sourceSets.main, 'mixins.ger.refmap.json'
+    config 'mixins.ger.json'
+}
 // Example for how to get properties into the manifest for reading by the runtime..
 jar {
     manifest {

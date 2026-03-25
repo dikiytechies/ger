@@ -1,0 +1,14 @@
+{
+  "entity.ger.gold_experience":"Gold Experience Requiem",
+  "stand.ger.ger": "Gold Experience Requiem",
+
+  "action.ger.gold_experience_heal":"Plug up wounds",
+  "action.ger.gold_experience_life_detector":"Life Sensor",
+  "action.ger.gold_experience_heal.arrow":"Plug up arrow wound",
+  "action.ger.gold_experience_heal.knife":"Plug up knife wound",
+  "action.ger.gold_experience_heal_other":"Plug up %s's wounds",
+  "action.ger.gold_experience_heal_other.arrow":"Plug up %s's arrow wound",
+  "action.ger.gold_experience_heal_other.knife":"Plug up %s's knife wound",
+  "action.ger.gold_experience_heal_other.dying":"Give life energy to %s",
+  "action.ger.gold_experience_healing_item":"Create body tissue"
+}

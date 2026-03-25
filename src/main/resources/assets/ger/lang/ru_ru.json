@@ -1,0 +1,14 @@
+{
+  "entity.ger.gold_experience":"Gold Experience Requiem",
+  "stand.ger.ger": "Gold Experience Requiem",
+
+  "action.ger.gold_experience_life_detector": "Детектор жизни",
+  "action.ger.gold_experience_heal": "Закрыть раны",
+  "action.ger.gold_experience_heal.arrow": "Закрыть рану от стрелы",
+  "action.ger.gold_experience_heal.knife": "Закрыть рану от ножа",
+  "action.ger.gold_experience_heal_other": "Закрыть раны %s",
+  "action.ger.gold_experience_heal_other.arrow": "Закрыть рану от стрелы %s",
+  "action.ger.gold_experience_heal_other.knife": "Закрыть рану от ножа %s",
+  "action.ger.gold_experience_heal_other.dying": "Дать жизненную энергию %s",
+  "action.ger.gold_experience_healing_item": "Создать ткани тела"
+}

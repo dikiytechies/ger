@@ -16,6 +16,8 @@ import com.github.standobyte.jojo.power.impl.stand.type.StandType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 
+import static com.github.standobyte.jojo.init.power.ModCommonRegisters.ACTIONS;
+
 public class InitStands {
     @SuppressWarnings("unchecked")
     public static final DeferredRegister<Action<?>> ACTIONS = DeferredRegister.create(
@@ -41,7 +43,6 @@ public class InitStands {
 
     public static final RegistryObject<StandEntityHeavyAttack> GOLD_EXPERIENCE_LIFESHOT_PUNCH = ACTIONS.register("gold_experience_lifeshot_punch",
             () -> new GoldExperienceLifeshotPunch(new StandEntityHeavyAttack.Builder()
-                    .resolveLevelToUnlock(1)
                     .attackRecoveryFollowup(GOLD_EXPERIENCE_ENTITY_LIFESHOT)
                     .standPose(StandPose.HEAVY_ATTACK_FINISHER)
                     .punchSound(ModSounds.GOLD_EXPERIENCE_PUNCH_HEAVY)
@@ -62,11 +63,32 @@ public class InitStands {
                     .partsRequired(StandInstance.StandPart.ARMS)
                     .shiftVariationOf(GOLD_EXPERIENCE_PUNCH).shiftVariationOf(GOLD_EXPERIENCE_BARRAGE)));
 
-    public static final RegistryObject<StandEntityBlock> GOLD_EXPERIENCE_BLOCK = ACTIONS.register("gold_experience_block",
-            () -> new StandEntityBlock());
+    public static final RegistryObject<GoldExperienceLifeDetector> GOLD_EXPERIENCE_LIFE_DETECTOR = ACTIONS.register("gold_experience_life_detector",
+            () -> new GoldExperienceLifeDetector(new StandEntityAction.Builder()
+                    .holdType().staminaCostTick(0.5F)
+                    .standAutoSummonMode(StandEntityAction.AutoSummonMode.OFF_ARM)
+                    .partsRequired(StandInstance.StandPart.MAIN_BODY)));
 
+    public static final RegistryObject<GoldExperienceHeal> GOLD_EXPERIENCE_HEAL = ACTIONS.register("gold_experience_heal",
+            () -> new GoldExperienceHeal(new StandEntityAction.Builder()
+                    .staminaCost(20)
+                    .standPerformDuration(10)
+                    .partsRequired(StandInstance.StandPart.ARMS)));
 
-    // todo nullify .resolveLevelToUnlock() on all abilities
+    public static final RegistryObject<GoldExperienceHealingItem> GOLD_EXPERIENCE_HEALING_ITEM = ACTIONS.register("gold_experience_healing_item",
+            () -> new GoldExperienceHealingItem(new StandEntityAction.Builder()
+                    .resolveLevelToUnlock(0)
+                    .staminaCost(40)
+                    .standPerformDuration(10)
+                    .partsRequired(StandInstance.StandPart.ARMS)));
+
+    public static final RegistryObject<GoldExperienceHealOther> GOLD_EXPERIENCE_HEAL_OTHER = ACTIONS.register("gold_experience_heal_other",
+            () -> new GoldExperienceHealOther(new StandEntityAction.Builder()
+                    .staminaCost(20)
+                    .standPerformDuration(10)
+                    .partsRequired(StandInstance.StandPart.ARMS)
+                    .shiftVariationOf(GOLD_EXPERIENCE_HEAL).addExtraUnlockable(GOLD_EXPERIENCE_HEALING_ITEM)));
+
     public static final EntityStandRegistryObject<EntityStandType<StandStats>, StandEntityType<GerStandEntity>> GER =
             new EntityStandRegistryObject<>("ger",
                     STANDS,
@@ -83,8 +105,8 @@ public class InitStands {
                                     ModStandsInit.GOLD_EXPERIENCE_CREATE_LIFEFORM.get(),
                                     ModStandsInit.GOLD_EXPERIENCE_MARK_ITEM.get(),
                                     ModStandsInit.GOLD_EXPERIENCE_BONE_MEAL.get(),
-                                    ModStandsInit.GOLD_EXPERIENCE_LIFE_DETECTOR.get(),
-                                    ModStandsInit.GOLD_EXPERIENCE_HEAL.get()
+                                    GOLD_EXPERIENCE_LIFE_DETECTOR.get(),
+                                    GOLD_EXPERIENCE_HEAL.get()
                             )
                             .defaultKey(ModStandsInit.GOLD_EXPERIENCE_CHOOSE_LIFEFORM.get(), "key.keyboard.c")
                             .setSurvivalGameplayPool(StandType.StandSurvivalGameplayPool.NON_ARROW)

@@ -1,6 +1,7 @@
 package com.dikiytechies.ger.init;
 
 import com.dikiytechies.ger.GerMain;
+import com.dikiytechies.ger.action.BeamAction;
 import com.dikiytechies.ger.entity.GerStandEntity;
 import com.github.standobyte.jojo.action.Action;
 import com.github.standobyte.jojo.action.stand.*;
@@ -15,8 +16,6 @@ import com.github.standobyte.jojo.power.impl.stand.type.EntityStandType;
 import com.github.standobyte.jojo.power.impl.stand.type.StandType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
-
-import static com.github.standobyte.jojo.init.power.ModCommonRegisters.ACTIONS;
 
 public class InitStands {
     @SuppressWarnings("unchecked")
@@ -89,6 +88,15 @@ public class InitStands {
                     .partsRequired(StandInstance.StandPart.ARMS)
                     .shiftVariationOf(GOLD_EXPERIENCE_HEAL).addExtraUnlockable(GOLD_EXPERIENCE_HEALING_ITEM)));
 
+    public static final RegistryObject<BeamAction> BEAM_ACTION = ACTIONS.register("beam",
+            () -> new BeamAction(new StandAction.Builder()
+                    .holdToFire(15, true)
+                    .heldWalkSpeed(0.55f)
+                    .staminaCost(40)
+                    .autoSummonStand()
+                    .partsRequired(StandInstance.StandPart.ARMS)
+            ));
+
     public static final EntityStandRegistryObject<EntityStandType<StandStats>, StandEntityType<GerStandEntity>> GER =
             new EntityStandRegistryObject<>("ger",
                     STANDS,
@@ -97,7 +105,8 @@ public class InitStands {
                             .storyPartName(ModStandsInit.PART_5_NAME)
                             .leftClickHotbar(
                                     ModStandsInit.GOLD_EXPERIENCE_PUNCH.get(),
-                                    ModStandsInit.GOLD_EXPERIENCE_BARRAGE.get()
+                                    ModStandsInit.GOLD_EXPERIENCE_BARRAGE.get(),
+                                    BEAM_ACTION.get()
                             )
                             .rightClickHotbar(
                                     ModStandsInit.GOLD_EXPERIENCE_BLOCK.get(),
@@ -119,7 +128,7 @@ public class InitStands {
                                     .precision(14.0)
                                     .build())
                             .addSummonShout(ModSounds.GIORNO_GOLD_EXPERIENCE)
-                            //.addOst()
+                            .addOst(ModSounds.GOLD_EXPERIENCE_OST)
                             .build(),
 
                     InitEntities.ENTITIES,

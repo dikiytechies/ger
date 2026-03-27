@@ -89,11 +89,13 @@ public class InitStands {
                     .shiftVariationOf(GOLD_EXPERIENCE_HEAL).addExtraUnlockable(GOLD_EXPERIENCE_HEALING_ITEM)));
 
     public static final RegistryObject<BeamAction> BEAM_ACTION = ACTIONS.register("beam",
-            () -> new BeamAction(new StandAction.Builder()
+            () -> new BeamAction(new BeamAction.Builder()
                     .holdToFire(15, true)
                     .heldWalkSpeed(0.55f)
                     .staminaCost(40)
-                    .autoSummonStand()
+                    .damage(5.0f)
+                    .standOffsetFront()
+                    .standAutoSummonMode(StandEntityAction.AutoSummonMode.MAIN_ARM)
                     .partsRequired(StandInstance.StandPart.ARMS)
             ));
 
@@ -123,7 +125,7 @@ public class InitStands {
                                     .tier(6)
                                     .power(12, 14)
                                     .speed(16, 18)
-                                    .range(2.0,4.0)
+                                    .range(4.0,4.0)
                                     .durability(9.0)
                                     .precision(14.0)
                                     .build())

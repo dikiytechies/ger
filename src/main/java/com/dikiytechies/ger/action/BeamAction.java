@@ -47,7 +47,7 @@ public class BeamAction extends StandEntityAction {
     @Override
     public void stoppedHolding(World world, LivingEntity user, IStandPower power, int ticksHeld, boolean willFire) {
         if (!world.isClientSide()) {
-            shoot(world, power, null, 0.0);
+            shoot(world, power, null, 0.0, 1.0f);
             if (!willFire) {
                 power.consumeStamina(getStaminaCost(power));
                 if (user instanceof PlayerEntity && !((PlayerEntity) user).abilities.instabuild)
@@ -57,7 +57,7 @@ public class BeamAction extends StandEntityAction {
         super.stoppedHolding(world, user, power, ticksHeld, willFire);
     }
 
-    public void shoot(World world, IStandPower power, List<Entity> metEntities, double offset) {
+    public void shoot(World world, IStandPower power, List<Entity> metEntities, double offset, float damageMultiplier) {
         Entity aimingEntity = StandUtil.getStandIfInManualControl(power);
         if (power.getStandManifestation() instanceof StandEntity) {
             if (metEntities == null) {
@@ -83,9 +83,10 @@ public class BeamAction extends StandEntityAction {
                         break;
                     target.hurt(DamageSource.WITHER, this.damage);
                     metEntities.add(target);
-                    shoot(world, power, metEntities, rayTrace.distanceTo(power.getUser()));
+                    shoot(world, power, metEntities, rayTrace.distanceTo(power.getUser()), damageMultiplier * 1.5f);
                     break;
                 case BLOCK:
+                    // todo add _extraInputBuf instead of null in order to make ability work
                     ModStandsInit.GOLD_EXPERIENCE_CREATE_LIFEFORM.get().perform(world, power.getUser(), power, ActionTarget.fromRayTraceResult(rayTrace), null);
                     break;
             }

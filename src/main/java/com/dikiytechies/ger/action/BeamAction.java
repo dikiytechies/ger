@@ -1,7 +1,6 @@
 package com.dikiytechies.ger.action;
 
-import com.dikiytechies.ger.GerMain;
-import com.dikiytechies.ger.init.InitStands;
+import com.dikiytechies.ger.util.BeamLifeformCreation;
 import com.github.standobyte.jojo.action.ActionConditionResult;
 import com.github.standobyte.jojo.action.ActionTarget;
 import com.github.standobyte.jojo.action.stand.GoldExperienceCreateLifeform;
@@ -9,13 +8,14 @@ import com.github.standobyte.jojo.action.stand.StandAction;
 import com.github.standobyte.jojo.action.stand.StandEntityAction;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
 import com.github.standobyte.jojo.init.ModParticles;
-import com.github.standobyte.jojo.init.power.stand.ModStandsInit;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
 import com.github.standobyte.jojo.power.impl.stand.StandUtil;
 import com.github.standobyte.jojo.util.mod.JojoModUtil;
+import io.netty.buffer.Unpooled;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.math.RayTraceResult;
@@ -28,6 +28,8 @@ import java.util.List;
 
 public class BeamAction extends StandEntityAction {
     private float damage;
+
+    PacketBuffer _extraInputBuffer = new PacketBuffer(Unpooled.buffer());
 
     public BeamAction(Builder builder) {
         super(builder);
@@ -81,13 +83,22 @@ public class BeamAction extends StandEntityAction {
                     Entity target = ActionTarget.fromRayTraceResult(rayTrace).getEntity();
                     if (metEntities.contains(target))
                         break;
-                    target.hurt(DamageSource.WITHER, this.damage);
+                    if (target.isAlive()) {
+                        target.hurt(DamageSource.WITHER, this.damage);
+                    } else { // IDK why this doesn't work in the og mod
+                        GoldExperienceCreateLifeform ability = new BeamLifeformCreation(new StandAction.Builder().staminaCostTick(0.2F));
+                        ability.clWriteExtraData(_extraInputBuffer);
+                        ability.perform(world, power.getUser(), power, ActionTarget.fromRayTraceResult(rayTrace), _extraInputBuffer);
+                        _extraInputBuffer.clear();
+                    }
                     metEntities.add(target);
                     shoot(world, power, metEntities, rayTrace.distanceTo(power.getUser()), Math.min(damageMultiplier * 1.5f, 25.0f));
                     break;
                 case BLOCK:
-                    // todo add _extraInputBuf instead of null in order to make ability work
-                    ModStandsInit.GOLD_EXPERIENCE_CREATE_LIFEFORM.get().perform(world, power.getUser(), power, ActionTarget.fromRayTraceResult(rayTrace), null);
+                    GoldExperienceCreateLifeform ability = new BeamLifeformCreation(new StandAction.Builder().staminaCostTick(0.2F));
+                    ability.clWriteExtraData(_extraInputBuffer);
+                    ability.perform(world, power.getUser(), power, ActionTarget.fromRayTraceResult(rayTrace), _extraInputBuffer);
+                    _extraInputBuffer.clear();
                     break;
             }
         }

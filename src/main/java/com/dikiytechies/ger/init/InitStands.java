@@ -99,6 +99,10 @@ public class InitStands {
                     .partsRequired(StandInstance.StandPart.ARMS)
             ));
 
+    public static final RegistryObject<GoldExperienceRevertLifeform> BEAM_REVERT_LIFEFORM = ACTIONS.register("beam_revert_lifeform",
+            () -> new GoldExperienceRevertLifeform(new StandAction.Builder()
+                    .shiftVariationOf(BEAM_ACTION)));
+
     public static final EntityStandRegistryObject<EntityStandType<StandStats>, StandEntityType<GerStandEntity>> GER =
             new EntityStandRegistryObject<>("ger",
                     STANDS,

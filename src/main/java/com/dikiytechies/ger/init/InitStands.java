@@ -40,7 +40,7 @@ public class InitStands {
     public static final RegistryObject<StandEntityActionModifier> GOLD_EXPERIENCE_ENTITY_LIFESHOT = ACTIONS.register("gold_experience_lifeshot",
             () -> new GoldExperienceEntityLifeshot(new StandAction.Builder().staminaCost(50)));
 
-    public static final RegistryObject<StandEntityHeavyAttack> GOLD_EXPERIENCE_LIFESHOT_PUNCH = ACTIONS.register("gold_experience_lifeshot_punch",
+    public static final RegistryObject<StandEntityHeavyAttack> GOLD_EXPERIENCE_LIFESHOT_PUNCH = ACTIONS.register("ger_lifeshot_punch",
             () -> new GoldExperienceLifeshotPunch(new StandEntityHeavyAttack.Builder()
                     .attackRecoveryFollowup(GOLD_EXPERIENCE_ENTITY_LIFESHOT)
                     .standPose(StandPose.HEAVY_ATTACK_FINISHER)
@@ -52,7 +52,7 @@ public class InitStands {
     public static final RegistryObject<StandEntityActionModifier> GOLD_EXPERIENCE_TOOTH_LIFEFORM = ACTIONS.register("gold_experience_tooth_lifeform",
             () -> new GoldExperienceToothLifeform(new StandAction.Builder()));
 
-    public static final RegistryObject<GoldExperienceHeavyPunch> GOLD_EXPERIENCE_HEAVY_PUNCH = ACTIONS.register("gold_experience_heavy_punch",
+    public static final RegistryObject<GoldExperienceHeavyPunch> GOLD_EXPERIENCE_HEAVY_PUNCH = ACTIONS.register("ger_heavy_punch",
             () -> new GoldExperienceHeavyPunch(new StandEntityHeavyAttack.Builder()
                     .attackRecoveryFollowup(GOLD_EXPERIENCE_TOOTH_LIFEFORM)
                     .punchSound(ModSounds.GOLD_EXPERIENCE_PUNCH_HEAVY)
@@ -88,7 +88,7 @@ public class InitStands {
                     .partsRequired(StandInstance.StandPart.ARMS)
                     .shiftVariationOf(GOLD_EXPERIENCE_HEAL).addExtraUnlockable(GOLD_EXPERIENCE_HEALING_ITEM)));
 
-    public static final RegistryObject<BeamAction> BEAM_ACTION = ACTIONS.register("beam",
+    public static final RegistryObject<BeamAction> BEAM_ACTION = ACTIONS.register("ger_beam",
             () -> new BeamAction(new BeamAction.Builder()
                     .holdToFire(15, true)
                     .heldWalkSpeed(0.55f)
@@ -99,7 +99,7 @@ public class InitStands {
                     .partsRequired(StandInstance.StandPart.ARMS)
             ));
 
-    public static final RegistryObject<GoldExperienceRevertLifeform> BEAM_REVERT_LIFEFORM = ACTIONS.register("beam_revert_lifeform",
+    public static final RegistryObject<GoldExperienceRevertLifeform> BEAM_REVERT_LIFEFORM = ACTIONS.register("ger_beam_revert_lifeform",
             () -> new GoldExperienceRevertLifeform(new StandAction.Builder()
                     .shiftVariationOf(BEAM_ACTION)));
 
@@ -110,8 +110,8 @@ public class InitStands {
                             .color(0xf5c856)
                             .storyPartName(ModStandsInit.PART_5_NAME)
                             .leftClickHotbar(
-                                    ModStandsInit.GOLD_EXPERIENCE_PUNCH.get(),
-                                    ModStandsInit.GOLD_EXPERIENCE_BARRAGE.get(),
+                                    GOLD_EXPERIENCE_PUNCH.get(),
+                                    GOLD_EXPERIENCE_BARRAGE.get(),
                                     BEAM_ACTION.get()
                             )
                             .rightClickHotbar(

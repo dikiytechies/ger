@@ -2,7 +2,14 @@
   "entity.ger.gold_experience":"Gold Experience Requiem",
   "stand.ger.ger": "Gold Experience Requiem",
 
-  "action.ger.gold_experience_life_detector": "Детектор жизни",
+  "action.ger.ger_beam": "Луч Жизни",
+  "action.ger.ger_punch":"Удар",
+  "action.ger.ger_heavy_punch":"Тяжёлый удар",
+  "action.ger.ger_lifeshot_punch":"Тяжёлый удар",
+  "action.ger.ger_barrage":"Шквал ударов",
+  "action.ger.ger_beam_revert_lifeform":"Обратить жизнь назад",
+  "action.ger.ger_beam_revert_lifeform.param":"Обратить в %s",
+
   "action.ger.gold_experience_heal": "Закрыть раны",
   "action.ger.gold_experience_heal.arrow": "Закрыть рану от стрелы",
   "action.ger.gold_experience_heal.knife": "Закрыть рану от ножа",
@@ -10,5 +17,8 @@
   "action.ger.gold_experience_heal_other.arrow": "Закрыть рану от стрелы %s",
   "action.ger.gold_experience_heal_other.knife": "Закрыть рану от ножа %s",
   "action.ger.gold_experience_heal_other.dying": "Дать жизненную энергию %s",
-  "action.ger.gold_experience_healing_item": "Создать ткани тела"
+  "action.ger.gold_experience_healing_item": "Создать ткани тела",
+  "action.ger.gold_experience_life_detector": "Детектор жизни",
+  "action.ger.gold_experience_tooth_lifeform":"Дать жизнь зубу",
+  "action.ger.gold_experience_tooth_lifeform.param":"Превратить зуб в %s"
 }

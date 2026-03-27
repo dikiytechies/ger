@@ -83,7 +83,7 @@ public class BeamAction extends StandEntityAction {
                         break;
                     target.hurt(DamageSource.WITHER, this.damage);
                     metEntities.add(target);
-                    shoot(world, power, metEntities, rayTrace.distanceTo(power.getUser()), damageMultiplier * 1.5f);
+                    shoot(world, power, metEntities, rayTrace.distanceTo(power.getUser()), Math.min(damageMultiplier * 1.5f, 25.0f));
                     break;
                 case BLOCK:
                     // todo add _extraInputBuf instead of null in order to make ability work

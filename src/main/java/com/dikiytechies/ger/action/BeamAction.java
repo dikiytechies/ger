@@ -7,6 +7,7 @@ import com.github.standobyte.jojo.action.stand.GoldExperienceCreateLifeform;
 import com.github.standobyte.jojo.action.stand.StandAction;
 import com.github.standobyte.jojo.action.stand.StandEntityAction;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
+import com.github.standobyte.jojo.entity.stand.StandPose;
 import com.github.standobyte.jojo.init.ModParticles;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
 import com.github.standobyte.jojo.power.impl.stand.StandUtil;
@@ -29,13 +30,15 @@ import java.util.List;
 public class BeamAction extends StandEntityAction {
     private float damage;
 
+    public static final StandPose SHOOT_ANIM = new StandPose("shoot");
+
     PacketBuffer _extraInputBuffer = new PacketBuffer(Unpooled.buffer());
 
     public BeamAction(Builder builder) {
         super(builder);
         this.damage = builder.damage;
     }
-
+    // todo entity limiter
     @Override
     protected ActionConditionResult checkSpecificConditions(LivingEntity user, IStandPower power, ActionTarget target) {
         if (user instanceof PlayerEntity
@@ -45,7 +48,7 @@ public class BeamAction extends StandEntityAction {
         }
         return ActionConditionResult.NEGATIVE;
     }
-
+    // todo stand inaccuracy
     @Override
     public void stoppedHolding(World world, LivingEntity user, IStandPower power, int ticksHeld, boolean willFire) {
         if (!world.isClientSide()) {

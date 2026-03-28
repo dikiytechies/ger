@@ -9,6 +9,7 @@
   "action.ger.ger_barrage":"Punch Barrage",
   "action.ger.ger_beam_revert_lifeform":"Revert",
   "action.ger.ger_beam_revert_lifeform.param":"Revert to %s",
+  "action.ger.ger_nullify": "Nullify",
 
   "action.ger.gold_experience_heal":"Plug up wounds",
   "action.ger.gold_experience_heal.arrow":"Plug up arrow wound",

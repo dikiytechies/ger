@@ -9,6 +9,7 @@
   "action.ger.ger_barrage":"Шквал ударов",
   "action.ger.ger_beam_revert_lifeform":"Обратить жизнь назад",
   "action.ger.ger_beam_revert_lifeform.param":"Обратить в %s",
+  "action.ger.ger_nullify": "Обнулить",
 
   "action.ger.gold_experience_heal": "Закрыть раны",
   "action.ger.gold_experience_heal.arrow": "Закрыть рану от стрелы",

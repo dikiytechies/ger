@@ -21,7 +21,7 @@ public class CounterEffect extends StandEffectInstance {
 
     @Override
     protected void tick() {
-        if (!world.isClientSide()) {
+        //if (!world.isClientSide()) {
             LivingEntity entity = getTargetLiving();
             if (entity == null) {
                 remove();
@@ -30,7 +30,7 @@ public class CounterEffect extends StandEffectInstance {
             if (--counterTicks <= 0) {
                 remove();
             }
-        }
+        //}
     }
 
     @Override

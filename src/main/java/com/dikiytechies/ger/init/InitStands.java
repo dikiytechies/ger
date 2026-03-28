@@ -101,7 +101,7 @@ public class InitStands {
                     .partsRequired(StandInstance.StandPart.ARMS)
             ));
 
-    public static final RegistryObject<CounterAction> COUNTER_ACTION = ACTIONS.register("nullify",
+    public static final RegistryObject<CounterAction> COUNTER_ACTION = ACTIONS.register("ger_nullify",
             () -> new CounterAction(new StandAction.Builder()
                     .partsRequired(StandInstance.StandPart.MAIN_BODY)));
 

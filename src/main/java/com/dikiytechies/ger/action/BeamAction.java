@@ -99,7 +99,7 @@ public class BeamAction extends StandEntityAction {
                         break;
                     if (target.isAlive()) {
                         target.hurt(DamageSource.mobAttack(stand), this.damage);
-                        // todo setLastHurtBy
+                        stand.setLastHurtMob(target);
                     } else { // IDK why this doesn't work in the og mod
                         GoldExperienceCreateLifeform ability = new BeamLifeformCreation(new StandAction.Builder().staminaCostTick(0.2F));
                         ability.clWriteExtraData(_extraInputBuffer);

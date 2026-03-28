@@ -2,6 +2,7 @@ package com.dikiytechies.ger.init;
 
 import com.dikiytechies.ger.GerMain;
 import com.dikiytechies.ger.action.BeamAction;
+import com.dikiytechies.ger.action.CounterAction;
 import com.dikiytechies.ger.entity.GerStandEntity;
 import com.github.standobyte.jojo.action.Action;
 import com.github.standobyte.jojo.action.stand.*;
@@ -100,6 +101,10 @@ public class InitStands {
                     .partsRequired(StandInstance.StandPart.ARMS)
             ));
 
+    public static final RegistryObject<CounterAction> COUNTER_ACTION = ACTIONS.register("nullify",
+            () -> new CounterAction(new StandAction.Builder()
+                    .partsRequired(StandInstance.StandPart.MAIN_BODY)));
+
     public static final RegistryObject<GoldExperienceRevertLifeform> BEAM_REVERT_LIFEFORM = ACTIONS.register("ger_beam_revert_lifeform",
             () -> new GoldExperienceRevertLifeform(new StandAction.Builder()
                     .shiftVariationOf(BEAM_ACTION)));
@@ -122,7 +127,8 @@ public class InitStands {
                                     ModStandsInit.GOLD_EXPERIENCE_MARK_ITEM.get(),
                                     ModStandsInit.GOLD_EXPERIENCE_BONE_MEAL.get(),
                                     GOLD_EXPERIENCE_LIFE_DETECTOR.get(),
-                                    GOLD_EXPERIENCE_HEAL.get()
+                                    GOLD_EXPERIENCE_HEAL.get(),
+                                    COUNTER_ACTION.get()
                             )
                             .defaultKey(ModStandsInit.GOLD_EXPERIENCE_CHOOSE_LIFEFORM.get(), "key.keyboard.c")
                             .setSurvivalGameplayPool(StandType.StandSurvivalGameplayPool.NON_ARROW)

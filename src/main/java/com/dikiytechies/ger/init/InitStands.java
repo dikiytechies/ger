@@ -102,7 +102,8 @@ public class InitStands {
             ));
 
     public static final RegistryObject<CounterAction> COUNTER_ACTION = ACTIONS.register("ger_nullify",
-            () -> new CounterAction(new StandAction.Builder()
+            () -> new CounterAction(new CounterAction.Builder()
+                    .baseCooldown(120)
                     .partsRequired(StandInstance.StandPart.MAIN_BODY)));
 
     public static final RegistryObject<GoldExperienceRevertLifeform> BEAM_REVERT_LIFEFORM = ACTIONS.register("ger_beam_revert_lifeform",

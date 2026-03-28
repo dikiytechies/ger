@@ -1,6 +1,5 @@
 package com.dikiytechies.ger.action;
 
-import com.dikiytechies.ger.GerMain;
 import com.dikiytechies.ger.action.effect.CounterEffect;
 import com.dikiytechies.ger.init.InitStandEffects;
 import com.github.standobyte.jojo.action.ActionConditionResult;
@@ -15,9 +14,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class CounterAction extends StandAction {
+    private final int baseCooldown;
 
-    public CounterAction(StandAction.Builder builder) {
+    public CounterAction(Builder builder) {
         super(builder);
+        this.baseCooldown = builder.baseCooldown;
     }
 
     @Override
@@ -42,5 +43,24 @@ public class CounterAction extends StandAction {
     @Override
     protected void perform(World world, LivingEntity user, IStandPower power, ActionTarget target, @Nullable PacketBuffer extraInput) {
         CounterEffect counterHandler = power.getContinuousEffects().getOrCreateEffect(InitStandEffects.GER_COUNTER.get(), user);
+        counterHandler.setAbility(this);
+    }
+
+    public int getBaseCooldown() {
+        return baseCooldown;
+    }
+
+    public static class Builder extends StandAction.AbstractBuilder<CounterAction.Builder> {
+        private int baseCooldown = 0;
+
+        public CounterAction.Builder baseCooldown(int baseCooldown) {
+            this.baseCooldown = baseCooldown;
+            return getThis();
+        }
+
+        @Override
+        public CounterAction.Builder getThis() {
+            return this;
+        }
     }
 }

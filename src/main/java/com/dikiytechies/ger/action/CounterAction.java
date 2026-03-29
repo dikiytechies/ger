@@ -42,6 +42,7 @@ public class CounterAction extends StandAction {
 
     @Override
     protected void perform(World world, LivingEntity user, IStandPower power, ActionTarget target, @Nullable PacketBuffer extraInput) {
+        // todo sound
         CounterEffect counterHandler = power.getContinuousEffects().getOrCreateEffect(InitStandEffects.GER_COUNTER.get(), user);
         counterHandler.setAbility(this);
     }

@@ -1,6 +1,7 @@
 package com.dikiytechies.ger.util;
 
 import com.dikiytechies.ger.GerMain;
+import com.dikiytechies.ger.action.CounterAction;
 import com.dikiytechies.ger.action.effect.CounterEffect;
 import com.dikiytechies.ger.init.InitStandEffects;
 import com.github.standobyte.jojo.action.stand.StandAction;
@@ -11,11 +12,10 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.Iterator;
 
 @Mod.EventBusSubscriber(modid = GerMain.MOD_ID)
 public class GameplayEventHandler {
@@ -35,15 +35,30 @@ public class GameplayEventHandler {
                         attacker.addEffect(new EffectInstance(ModStatusEffects.STUN.get(), 30, 0, false, false, false));
 
                         IStandPower.getStandPowerOptional(attacker).ifPresent(power -> {
-                            Iterator<StandAction> actions = power.getAllUnlockedActions().iterator();
-                            if (actions.hasNext()) {
-                                StandAction action = actions.next();
+                            for (StandAction action : power.getAllUnlockedActions()) {
                                 power.setCooldownTimer(action, action.cooldown * 2);
                             }
                         });
                     }
                 }
             }
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOW)
+    public static void onLivingDamaged(LivingDamageEvent event) {
+        LivingEntity living = event.getEntityLiving();
+        if (!living.level.isClientSide()) {
+            IStandPower.getStandPowerOptional(living).ifPresent(power -> {
+                int cooldown = 25;
+                for (StandAction action : power.getAllUnlockedActions()) {
+                    if (action instanceof CounterAction
+                            && !power.getContinuousEffects().getEffectOfType(InitStandEffects.GER_COUNTER.get()).isPresent()
+                            && power.getCooldownTimer(action) <= cooldown) {
+                        power.setCooldownTimer(action, cooldown);
+                    }
+                }
+            });
         }
     }
 }

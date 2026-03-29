@@ -100,7 +100,7 @@ public class InitStands {
                     .standAutoSummonMode(StandEntityAction.AutoSummonMode.MAIN_ARM)
                     .partsRequired(StandInstance.StandPart.ARMS)
             ));
-
+    // todo progression
     public static final RegistryObject<CounterAction> COUNTER_ACTION = ACTIONS.register("ger_nullify",
             () -> new CounterAction(new CounterAction.Builder()
                     .baseCooldown(120)

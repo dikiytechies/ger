@@ -5,7 +5,8 @@
   "refmap": "mixins.ger.refmap.json",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "GoldExperienceHealOtherMixin"
+    "GoldExperienceHealOtherMixin",
+    "StandArrowItemMixin"
   ],
   "client": [
   ],

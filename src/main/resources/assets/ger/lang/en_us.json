@@ -10,6 +10,7 @@
   "action.ger.ger_beam_revert_lifeform":"Revert",
   "action.ger.ger_beam_revert_lifeform.param":"Revert to %s",
   "action.ger.ger_nullify": "Nullify",
+  "action.ger.ger_back_to_zero": "Back to Zero",
 
   "action.ger.gold_experience_heal":"Plug up wounds",
   "action.ger.gold_experience_heal.arrow":"Plug up arrow wound",

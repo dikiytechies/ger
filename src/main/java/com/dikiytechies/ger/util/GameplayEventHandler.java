@@ -33,6 +33,7 @@ public class GameplayEventHandler {
                         event.setCanceled(true);
                         StandEffectsTracker.getEffectOfType(living, InitStandEffects.GER_COUNTER.get()).ifPresent(c -> c.setCountered(true));
                         attacker.addEffect(new EffectInstance(ModStatusEffects.STUN.get(), 30, 0, false, false, false));
+                        IStandPower.getStandPowerOptional(living).ifPresent(s -> s.consumeStamina(event.getAmount() * 2.5f));
 
                         IStandPower.getStandPowerOptional(attacker).ifPresent(power -> {
                             for (StandAction action : power.getAllUnlockedActions()) {

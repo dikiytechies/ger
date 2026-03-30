@@ -21,21 +21,6 @@ public class LevelBackToZeroTracker extends WorldSavedData {
         super(id);
     }
     
-    public void tick() {
-        Iterator<StandEffectInstance> iter = activeBackToZeroEffects.iterator();
-        while (iter.hasNext()) {
-            StandEffectInstance backToZeroEffect = iter.next();
-            boolean removed = backToZeroEffect.toBeRemoved();
-            if (!removed) {
-                LivingEntity gerUser = backToZeroEffect.getStandUser();
-                removed |= gerUser == null || !gerUser.isAlive();
-            }
-            if (removed) {
-                iter.remove();
-            }
-        }
-    }
-    
     // capabilities are annoying, this is faster to set up
     public static LevelBackToZeroTracker get(World level) {
         if (level instanceof ServerWorld) {

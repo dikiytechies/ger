@@ -19,7 +19,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.network.PacketBuffer;
 
 @SuppressWarnings("rawtypes")
-@Mixin(PowerBaseImpl.class)
+@Mixin(value = PowerBaseImpl.class, remap = false)
 public abstract class PowerCancelActionClickMixin implements IPower {
     @Shadow @Final protected LivingEntity user;
     

@@ -69,7 +69,7 @@ public class BackToZeroEffect extends StandEffectInstance {
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public static boolean cancelOnAbilityUse(Action action, IPower targetPower, LivingEntity target) {
-        if (BANNED_ABILITIES.contains(action.getClass())) {
+        if (BANNED_ABILITIES.contains(action.getRegistryName())) {
             LevelBackToZeroTracker worldEffects = LevelBackToZeroTracker.get(target.level);
             if (worldEffects != null) {
                 Vector3d targetPos = target.position();

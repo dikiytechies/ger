@@ -1,6 +1,5 @@
 package com.dikiytechies.ger.mixin;
 
-import com.dikiytechies.ger.init.InitStands;
 import com.dikiytechies.ger.init.Stands;
 import com.github.standobyte.jojo.init.power.stand.ModStands;
 import com.github.standobyte.jojo.item.StandArrowItem;

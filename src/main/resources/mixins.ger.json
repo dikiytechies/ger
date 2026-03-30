@@ -6,7 +6,8 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "GoldExperienceHealOtherMixin",
-    "StandArrowItemMixin"
+    "StandArrowItemMixin",
+    "PowerCancelActionClickMixin"
   ],
   "client": [
   ],

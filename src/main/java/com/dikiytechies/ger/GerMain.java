@@ -3,6 +3,7 @@ package com.dikiytechies.ger;
 import com.dikiytechies.ger.init.AddonInits;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,5 +18,11 @@ public class GerMain {
 
         AddonInits.addonRegistries(modEventBus);
         AddonInits.vanillaRegistries(modEventBus);
+
+        modEventBus.addListener(this::onFMLCommonSetup);
+    }
+
+    private void onFMLCommonSetup(FMLCommonSetupEvent event) {
+        event.enqueueWork(AddonInits::initCommunityAddonsBanList);
     }
 }

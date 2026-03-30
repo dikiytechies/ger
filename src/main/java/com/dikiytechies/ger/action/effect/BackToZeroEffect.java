@@ -1,6 +1,7 @@
 package com.dikiytechies.ger.action.effect;
 
 import com.dikiytechies.ger.LevelBackToZeroTracker;
+import com.dikiytechies.ger.init.InitSounds;
 import com.dikiytechies.ger.init.InitStandEffects;
 import com.github.standobyte.jojo.JojoModConfig;
 import com.github.standobyte.jojo.action.Action;
@@ -11,6 +12,7 @@ import com.github.standobyte.jojo.power.IPower;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
 import com.github.standobyte.jojo.util.mc.MCUtil;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.vector.Vector3d;
 
 import org.jetbrains.annotations.NotNull;
@@ -93,6 +95,8 @@ public class BackToZeroEffect extends StandEffectInstance {
                         if (!gerUser.is(target)) {
                             Vector3d gerUserPos = gerUser.position();
                             if (gerUserPos.distanceToSqr(targetPos) <= rangeSqr) {
+                                MCUtil.playSound(target.level, null, target, InitSounds.GER_CANCEL.get(),
+                                        SoundCategory.PLAYERS, 1.0f, 0.95f + target.getRandom().nextFloat() * 0.1F, p -> true);
                                 targetPower.setCooldownTimer(action, 20);
                                 cancel = true;
                             }

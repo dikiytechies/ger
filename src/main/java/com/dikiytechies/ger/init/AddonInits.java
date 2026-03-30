@@ -14,6 +14,7 @@ import java.util.Set;
 public class AddonInits {
     public static void vanillaRegistries(IEventBus modEventBus) {
         InitEntities.ENTITIES.register(modEventBus);
+        InitSounds.SOUNDS.register(modEventBus);
     }
 
     public static void addonRegistries(IEventBus modEventBus) {

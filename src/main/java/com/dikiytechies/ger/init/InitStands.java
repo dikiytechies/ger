@@ -30,12 +30,12 @@ public class InitStands {
 
     public static final RegistryObject<StandEntityAction> GOLD_EXPERIENCE_PUNCH = ACTIONS.register("ger_punch",
             () -> new StandEntityLightAttack(new StandEntityLightAttack.Builder()
-                    .punchSound(ModSounds.GOLD_EXPERIENCE_PUNCH_LIGHT)
+                    .punchSound(InitSounds.GER_PUNCH_LIGHT)
                     .standSound(StandEntityAction.Phase.WINDUP, false, ModSounds.GOLD_EXPERIENCE_MUDA)));
 
     public static final RegistryObject<StandEntityAction> GOLD_EXPERIENCE_BARRAGE = ACTIONS.register("ger_barrage",
             () -> new StandEntityMeleeBarrage(new StandEntityMeleeBarrage.Builder()
-                    .barrageHitSound(ModSounds.GOLD_EXPERIENCE_PUNCH_BARRAGE)
+                    .barrageHitSound(InitSounds.GER_PUNCH_BARRAGE)
                     .standSound(StandEntityAction.Phase.PERFORM, false, ModSounds.GOLD_EXPERIENCE_MUDA_RUSH)));
 
 
@@ -46,9 +46,9 @@ public class InitStands {
             () -> new GoldExperienceLifeshotPunch(new StandEntityHeavyAttack.Builder()
                     .attackRecoveryFollowup(GOLD_EXPERIENCE_ENTITY_LIFESHOT)
                     .standPose(StandPose.HEAVY_ATTACK_FINISHER)
-                    .punchSound(ModSounds.GOLD_EXPERIENCE_PUNCH_HEAVY)
+                    .punchSound(InitSounds.GER_PUNCH_HEAVY)
                     .standSound(StandEntityAction.Phase.WINDUP, false, ModSounds.GOLD_EXPERIENCE_MUDA_LONG)
-                    .standSound(StandEntityAction.Phase.PERFORM, ModSounds.GOLD_EXPERIENCE_PUNCH_HEAVY_EXTRA)
+                    .standSound(StandEntityAction.Phase.PERFORM, InitSounds.GER_PUNCH_HEAVY_EXTRA)
                     .partsRequired(StandInstance.StandPart.ARMS)));
 
     public static final RegistryObject<StandEntityActionModifier> GOLD_EXPERIENCE_TOOTH_LIFEFORM = ACTIONS.register("gold_experience_tooth_lifeform",
@@ -57,9 +57,9 @@ public class InitStands {
     public static final RegistryObject<GoldExperienceHeavyPunch> GOLD_EXPERIENCE_HEAVY_PUNCH = ACTIONS.register("ger_heavy_punch",
             () -> new GoldExperienceHeavyPunch(new StandEntityHeavyAttack.Builder()
                     .attackRecoveryFollowup(GOLD_EXPERIENCE_TOOTH_LIFEFORM)
-                    .punchSound(ModSounds.GOLD_EXPERIENCE_PUNCH_HEAVY)
+                    .punchSound(InitSounds.GER_PUNCH_HEAVY)
                     .standSound(StandEntityAction.Phase.WINDUP, false, ModSounds.GOLD_EXPERIENCE_MUDA_LONG)
-                    .standSound(StandEntityAction.Phase.PERFORM, ModSounds.GOLD_EXPERIENCE_PUNCH_HEAVY_EXTRA)
+                    .standSound(StandEntityAction.Phase.PERFORM, InitSounds.GER_PUNCH_HEAVY_EXTRA)
                     .setFinisherVariation(GOLD_EXPERIENCE_LIFESHOT_PUNCH)
                     .partsRequired(StandInstance.StandPart.ARMS)
                     .shiftVariationOf(GOLD_EXPERIENCE_PUNCH).shiftVariationOf(GOLD_EXPERIENCE_BARRAGE)));
@@ -96,6 +96,7 @@ public class InitStands {
                     .heldWalkSpeed(0.55f)
                     .staminaCost(40)
                     .damage(5.0f)
+                    .resolveLevelToUnlock(1)
                     .standOffsetFront()
                     .standPose(BeamAction.SHOOT_ANIM)
                     .standAutoSummonMode(StandEntityAction.AutoSummonMode.MAIN_ARM)
@@ -105,11 +106,13 @@ public class InitStands {
     public static final RegistryObject<CounterAction> COUNTER_ACTION = ACTIONS.register("ger_nullify",
             () -> new CounterAction(new CounterAction.Builder()
                     .baseCooldown(120)
+                    .resolveLevelToUnlock(2)
                     .partsRequired(StandInstance.StandPart.MAIN_BODY)));
 
     public static final RegistryObject<BackToZeroAction> BACK_TO_ZERO_ACTION = ACTIONS.register("ger_back_to_zero",
             () -> new BackToZeroAction(new StandAction.Builder()
                     .cooldown(10)
+                    .resolveLevelToUnlock(4)
                     .partsRequired(StandInstance.StandPart.MAIN_BODY)));
 
     public static final RegistryObject<GoldExperienceRevertLifeform> BEAM_REVERT_LIFEFORM = ACTIONS.register("ger_beam_revert_lifeform",
@@ -154,7 +157,7 @@ public class InitStands {
 
                     InitEntities.ENTITIES,
                             () -> new StandEntityType<GerStandEntity>(GerStandEntity::new, 0.7f, 2.1f)
-                                    .summonSound(ModSounds.GOLD_EXPERIENCE_SUMMON)
-                                    .unsummonSound(ModSounds.GOLD_EXPERIENCE_UNSUMMON))
+                                    .summonSound(InitSounds.GER_SUMMON)
+                                    .unsummonSound(InitSounds.GER_UNSUMMON))
                     .withDefaultStandAttributes();
 }

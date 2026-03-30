@@ -1,0 +1,68 @@
+{
+  "ger_summon": {
+    "subtitle": "jojo.subtitle.stand_summon",
+    "sounds": [
+      "ger:stand/ger_summon"
+    ]
+  },
+  "ger_unsummon": {
+    "subtitle": "jojo.subtitle.stand_unsummon",
+    "sounds": [
+      "jojo:stand/stand_unsummon"
+    ]
+  },
+  "ger_punch_light": {
+    "subtitle": "jojo.subtitle.stand_attack_light",
+    "sounds": [
+      "jojo:stand/gold_experience_punch_light",
+      "jojo:stand/gold_experience_punch_light_2",
+      "jojo:stand/gold_experience_punch_light_3",
+      "jojo:stand/gold_experience_punch_light_4"
+    ]
+  },
+  "ger_punch_barrage": {
+    "subtitle": "jojo.subtitle.stand_attack_light",
+    "sounds": [
+      "jojo:stand/gold_experience_punch_barrage",
+      "jojo:stand/gold_experience_punch_barrage_2",
+      "jojo:stand/gold_experience_punch_barrage_3",
+      "jojo:stand/gold_experience_punch_barrage_4",
+      "jojo:stand/gold_experience_punch_light",
+      "jojo:stand/gold_experience_punch_light_2",
+      "jojo:stand/gold_experience_punch_light_3",
+      "jojo:stand/gold_experience_punch_light_4"
+    ]
+  },
+  "ger_punch_heavy": {
+    "subtitle": "jojo.subtitle.stand_attack_strong",
+    "sounds": [
+      "ger:stand/ger_heavy_punch"
+    ]
+  },
+  "ger_punch_heavy_extra": {
+    "sounds": [
+      "ger:stand/ger_heavy_punch_extra"
+    ]
+  },
+  "ger_beam_shot": {
+    "sounds": [
+      "ger:stand/ger_beam_shot"
+    ]
+  },
+  "beam_target": {
+    "sounds": [
+      "ger:misc/beam_target",
+      "ger:misc/beam_target_2"
+    ]
+  },
+  "ger_cancel": {
+    "sounds": [
+      "ger:stand/ger_cancel"
+    ]
+  },
+  "ger_respawn": {
+    "sounds": [
+      "ger:misc/respawn"
+    ]
+  }
+}

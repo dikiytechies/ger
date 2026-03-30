@@ -8,6 +8,7 @@ import com.github.standobyte.jojo.init.power.JojoCustomRegistries;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class AddonInits {
@@ -21,12 +22,34 @@ public class AddonInits {
         InitStandEffects.STAND_EFFECTS.register(modEventBus);
     }
     // adding the most powerful abilities to the set
-    public static Set<Class<? extends StandAction>> BANNED_ABILITIES = JavaUtil.modifiableSetOf(
-            TimeStop.class, TheWorldTimeStop.class, TimeStopInstant.class, TheWorldTSHeavyAttack.class, MagiciansRedCrossfireHurricane.class,
-            SilverChariotTakeOffArmor.class, GoldExperienceLifeshotPunch.class, HierophantGreenBarrier.class, HierophantGreenGrapple.class, CrazyDiamondBlockBullet.class,
-            CrazyDiamondBloodCutter.class, BeamAction.class);
+    public static Set<ResourceLocation> BANNED_ABILITIES = new HashSet<>();
 
     public static void initCommunityAddonsBanList() {
+        addIfPresent("jojo", "star_platinum_time_stop");
+        addIfPresent("jojo", "star_platinum_ts_blink");
+
+        addIfPresent("jojo", "the_world_time_stop");
+        addIfPresent("jojo", "the_world_ts_blink");
+        addIfPresent("jojo", "the_world_ts_punch");
+
+        addIfPresent("jojo", "hierophant_green_attack_binding");
+        addIfPresent("jojo", "hierophant_green_grapple_entity");
+        addIfPresent("jojo", "hierophant_green_barrier");
+
+        addIfPresent("jojo", "silver_chariot_take_off_armor");
+
+        addIfPresent("jojo", "magicians_red_crossfire_hurricane");
+        addIfPresent("jojo", "magicians_red_ch_special");
+
+        addIfPresent("jojo", "crazy_diamond_misshaping_punch");
+        addIfPresent("jojo", "crazy_diamond_block_bullet");
+        addIfPresent("jojo", "crazy_diamond_blood_cutter");
+
+        addIfPresent("jojo", "gold_experience_lifeshot_punch");
+
+        addIfPresent("ger", "ger_lifeshot_punch");
+        addIfPresent("ger", "ger_beam");
+
         // hello there
         addIfPresent("rotp_kingcrimson", "kingcrimson_timeskip");
         addIfPresent("rotp_kingcrimson", "kingcrimson_timeerase");
@@ -146,10 +169,8 @@ public class AddonInits {
     }
 
     private static void addIfPresent(String modId, String registry) {
-        Action<?> action = JojoCustomRegistries.ACTIONS.getValue(new ResourceLocation(modId, registry));
-        if (action != null) {
-            Class<? extends StandAction> clazz = (Class<? extends StandAction>) action.getClass();
-            BANNED_ABILITIES.add(clazz);
-        }
+        ResourceLocation location = new ResourceLocation(modId, registry);
+        if (JojoCustomRegistries.ACTIONS.getValue(location) != null)
+            BANNED_ABILITIES.add(location);
     }
 }

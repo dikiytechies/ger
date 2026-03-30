@@ -1,11 +1,10 @@
 package com.dikiytechies.ger;
 
 import com.dikiytechies.ger.init.AddonInits;
-import com.github.standobyte.jojo.action.Action;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,12 +17,14 @@ public class GerMain {
     public GerMain() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        modEventBus.register(this);
+
         AddonInits.addonRegistries(modEventBus);
         AddonInits.vanillaRegistries(modEventBus);
     }
 
     @SubscribeEvent
-    public static void onFMLRegister(RegistryEvent.Register<Action<?>> event) {
+    public void onFMLRegister(FMLCommonSetupEvent event) {
         AddonInits.initCommunityAddonsBanList();
     }
 }

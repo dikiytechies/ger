@@ -46,7 +46,7 @@ public class BackToZeroEffect extends StandEffectInstance {
                 false, entity -> IStandPower.getStandPowerOptional(entity).isPresent())) {
             IStandPower.getStandPowerOptional(target).ifPresent(power -> {
                 for (StandAction action: power.getAllUnlockedActions()) {
-                    if (action.cooldown < 20 && BANNED_ABILITIES.contains(action.getClass())) {
+                    if (action.cooldown < 20 && BANNED_ABILITIES.contains(action.getRegistryName())) {
                         power.setCooldownTimer(action, 20); // <- shitcode
                     }
                 }

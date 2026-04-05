@@ -1,17 +1,14 @@
 package com.dikiytechies.ger;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import com.github.standobyte.jojo.action.stand.effect.StandEffectInstance;
-
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.DimensionSavedDataManager;
 import net.minecraft.world.storage.WorldSavedData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LevelBackToZeroTracker extends WorldSavedData {
     public static final String ID = "rotp_ger:back_to_zero_effects";

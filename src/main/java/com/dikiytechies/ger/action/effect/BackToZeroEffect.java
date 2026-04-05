@@ -14,12 +14,11 @@ import com.github.standobyte.jojo.util.mc.MCUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.vector.Vector3d;
-
 import org.jetbrains.annotations.NotNull;
 
-import static com.dikiytechies.ger.init.AddonInits.BANNED_ABILITIES;
-
 import java.util.Iterator;
+
+import static com.dikiytechies.ger.init.AddonInits.BANNED_ABILITIES;
 
 public class BackToZeroEffect extends StandEffectInstance {
 

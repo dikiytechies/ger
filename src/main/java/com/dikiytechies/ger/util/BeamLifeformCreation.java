@@ -5,19 +5,15 @@ import com.github.standobyte.jojo.action.non_stand.HamonOrganismInfusion;
 import com.github.standobyte.jojo.action.stand.GoldExperienceChooseLifeform;
 import com.github.standobyte.jojo.action.stand.GoldExperienceCreateLifeform;
 import com.github.standobyte.jojo.action.stand.effect.GECreatedLifeformEffect;
-import com.github.standobyte.jojo.action.stand.effect.StandEffectInstance;
 import com.github.standobyte.jojo.capability.entity.PlayerUtilCap;
 import com.github.standobyte.jojo.capability.entity.PlayerUtilCapProvider;
 import com.github.standobyte.jojo.entity.GETransformationEntity;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
-import com.github.standobyte.jojo.init.power.stand.ModStandEffects;
 import com.github.standobyte.jojo.init.power.stand.ModStandsInit;
 import com.github.standobyte.jojo.modcompat.ModInteractionUtil;
 import com.github.standobyte.jojo.mrpresident.MrPresidentStandType;
 import com.github.standobyte.jojo.mrpresident.dimension.MrPresidentWorldData;
-import com.github.standobyte.jojo.network.NetworkUtil;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
-import com.github.standobyte.jojo.power.impl.stand.StandEffectsTracker;
 import com.github.standobyte.jojo.util.general.GeneralUtil;
 import com.github.standobyte.jojo.util.general.ObjectWrapper;
 import com.github.standobyte.jojo.util.mc.MCUtil;
@@ -32,7 +28,6 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Items;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -55,11 +50,9 @@ public class BeamLifeformCreation extends GoldExperienceCreateLifeform {
 
     public BeamLifeformCreation(Builder builder) { super(builder); }
 
-    @Override
-    public void perform(World world, LivingEntity user, IStandPower power, ActionTarget target, @Nullable PacketBuffer extraInput) {
-        if (!world.isClientSide() && extraInput != null) {
-            EntitySubtype<?> type = NetworkUtil.readOptional(extraInput, EntitySubtype::fromBuf).orElse(null);
-            UUID itemTrackerId = NetworkUtil.readOptional(extraInput, extraInput::readUUID).orElse(null);
+    public void customPerform(World world, LivingEntity user, IStandPower power, ActionTarget target, EntitySubtype<?> entityType) {
+        if (!world.isClientSide() && entityType != null) {
+            EntitySubtype<?> type = entityType;
             if (type != null
                     && GeneralUtil.orElseFalse(user.getCapability(PlayerUtilCapProvider.CAPABILITY),
                     cap -> cap.metEntityType(type))
@@ -125,11 +118,6 @@ public class BeamLifeformCreation extends GoldExperienceCreateLifeform {
                         lifeFormCreated.setCustomName(customName.get());
                     }
                     world.addFreshEntity(tf);
-
-                    if (itemTrackerId != null) {
-                        StandEffectsTracker.getEffectsOfType(Optional.of(power), ModStandEffects.GE_ITEM_MARK.get())
-                                .forEach(StandEffectInstance::remove);
-                    }
 
                     if (lifeFormCreated instanceof LivingEntity) {
                         IStandPower.getStandPowerOptional((LivingEntity) lifeFormCreated).ifPresent(mobStand -> {

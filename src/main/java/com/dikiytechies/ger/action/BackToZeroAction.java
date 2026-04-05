@@ -1,6 +1,5 @@
 package com.dikiytechies.ger.action;
 
-import com.dikiytechies.ger.init.AddonInits;
 import com.dikiytechies.ger.init.InitStandEffects;
 import com.github.standobyte.jojo.action.ActionConditionResult;
 import com.github.standobyte.jojo.action.ActionTarget;

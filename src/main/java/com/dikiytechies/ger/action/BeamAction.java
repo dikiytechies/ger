@@ -1,6 +1,5 @@
 package com.dikiytechies.ger.action;
 
-import com.dikiytechies.ger.GerMain;
 import com.dikiytechies.ger.init.InitSounds;
 import com.dikiytechies.ger.util.BeamLifeformCreation;
 import com.github.standobyte.jojo.action.ActionConditionResult;
@@ -17,11 +16,9 @@ import com.github.standobyte.jojo.power.impl.stand.StandEffectsTracker;
 import com.github.standobyte.jojo.power.impl.stand.StandUtil;
 import com.github.standobyte.jojo.util.mc.MCUtil;
 import com.github.standobyte.jojo.util.mod.JojoModUtil;
-import io.netty.buffer.Unpooled;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.SoundCategory;
@@ -38,8 +35,6 @@ public class BeamAction extends StandEntityAction {
     private float damage;
 
     public static final StandPose SHOOT_ANIM = new StandPose("shoot");
-
-    PacketBuffer _extraInputBuffer = new PacketBuffer(Unpooled.buffer());
 
     public BeamAction(Builder builder) {
         super(builder);
@@ -95,33 +90,31 @@ public class BeamAction extends StandEntityAction {
             ((ServerWorld) world).sendParticles(ModParticles.CD_RESTORATION.get(), current.x, current.y, current.z, 1, 0.0, 0.0, 0.0, 0.01);
             current = current.add(rayTrace.getLocation().subtract(startPos).normalize());
         }
-        switch (rayTrace.getType()) {
-            case ENTITY:
-                Entity target = ActionTarget.fromRayTraceResult(rayTrace).getEntity();
-                if (metEntities.contains(target))
+        if (power.getUser() instanceof PlayerEntity){
+            switch (rayTrace.getType()) {
+                case ENTITY:
+                    Entity target = ActionTarget.fromRayTraceResult(rayTrace).getEntity();
+                    if (metEntities.contains(target))
+                        break;
+                    if (target.isAlive()) {
+                        MCUtil.playSound(world, null, target, InitSounds.BEAM_TARGET.get(),
+                                SoundCategory.PLAYERS, 1.0f, 0.95f + power.getUser().getRandom().nextFloat() * 0.1F, p -> true);
+                        target.hurt(DamageSource.mobAttack(stand), this.damage);
+                        power.getUser().setLastHurtMob(target);
+                    } else { // IDK why this doesn't work in the og mod
+                        BeamLifeformCreation ability = new BeamLifeformCreation(new StandAction.Builder().staminaCostTick(0.2F));
+                        ability.customPerform(world, power.getUser(), power, ActionTarget.fromRayTraceResult(rayTrace), GoldExperienceCreateLifeform.getChosenEntityType((PlayerEntity) power.getUser()));
+                    }
+                    metEntities.add(target);
+                    shoot(world, power, metEntities, rayTrace.distanceTo(power.getUser()), Math.min(damageMultiplier * 1.5f, 25.0f), 0.0);
                     break;
-                if (target.isAlive()) {
-                    MCUtil.playSound(world, null, target, InitSounds.BEAM_TARGET.get(),
-                            SoundCategory.PLAYERS, 1.0f, 0.95f + power.getUser().getRandom().nextFloat() * 0.1F, p -> true);
-                    target.hurt(DamageSource.mobAttack(stand), this.damage);
-                    power.getUser().setLastHurtMob(target);
-                } else { // IDK why this doesn't work in the og mod
-                    GoldExperienceCreateLifeform ability = new BeamLifeformCreation(new StandAction.Builder().staminaCostTick(0.2F));
-                    ability.clWriteExtraData(_extraInputBuffer);
-                    ability.perform(world, power.getUser(), power, ActionTarget.fromRayTraceResult(rayTrace), _extraInputBuffer);
-                    _extraInputBuffer.clear();
-                }
-                metEntities.add(target);
-                shoot(world, power, metEntities, rayTrace.distanceTo(power.getUser()), Math.min(damageMultiplier * 1.5f, 25.0f), 0.0);
-                break;
-            case BLOCK:
-                if (power.getResolveLevel() >= 3) { // I wish this to be done a more proper way
-                    GoldExperienceCreateLifeform ability = new BeamLifeformCreation(new StandAction.Builder().staminaCostTick(0.2F));
-                    ability.clWriteExtraData(_extraInputBuffer);
-                    ability.perform(world, power.getUser(), power, ActionTarget.fromRayTraceResult(rayTrace), _extraInputBuffer);
-                    _extraInputBuffer.clear();
-                }
-                break;
+                case BLOCK:
+                    if (power.getResolveLevel() >= 3) { // I wish this to be done a more proper way
+                        BeamLifeformCreation ability = new BeamLifeformCreation(new StandAction.Builder().staminaCostTick(0.2F));
+                        ability.customPerform(world, power.getUser(), power, ActionTarget.fromRayTraceResult(rayTrace), GoldExperienceCreateLifeform.getChosenEntityType((PlayerEntity) power.getUser()));
+                    }
+                    break;
+            }
         }
     }
 

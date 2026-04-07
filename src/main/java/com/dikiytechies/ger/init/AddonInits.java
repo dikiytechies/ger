@@ -9,6 +9,7 @@ import java.util.Set;
 
 public class AddonInits {
     public static void vanillaRegistries(IEventBus modEventBus) {
+        InitEffects.EFFECTS.register(modEventBus);
         InitEntities.ENTITIES.register(modEventBus);
         InitSounds.SOUNDS.register(modEventBus);
     }

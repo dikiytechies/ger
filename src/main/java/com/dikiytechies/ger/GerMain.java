@@ -1,5 +1,6 @@
 package com.dikiytechies.ger;
 
+import com.dikiytechies.ger.capability.CapabilityHandler;
 import com.dikiytechies.ger.init.AddonInits;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -21,6 +22,14 @@ public class GerMain {
 
         AddonInits.addonRegistries(modEventBus);
         AddonInits.vanillaRegistries(modEventBus);
+
+        modEventBus.addListener(this::preInit);
+    }
+
+    private void preInit(FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            CapabilityHandler.commonSetupRegister();
+        });
     }
 
     @SubscribeEvent

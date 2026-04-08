@@ -59,7 +59,7 @@ public class GameplayEventHandler {
         LivingEntity living = event.getEntityLiving();
 
         counterOnDamagedCooldown(living);
-        deathLoopOnDamaged(event); // todo remember ticksLeft
+        deathLoopOnDamaged(event);
     }
 
     private static void counterOnDamagedCooldown(LivingEntity living) {
@@ -83,6 +83,10 @@ public class GameplayEventHandler {
         if (!living.level.isClientSide()) {
             if (living.hasEffect(InitEffects.DEATH_LOOP.get()) && living.getEffect(InitEffects.DEATH_LOOP.get()).getDuration() > 0) {
                 event.setAmount(Float.MAX_VALUE);
+                if (living instanceof PlayerEntity) {
+                    living.getCapability(PlayerUtilCapProvider.CAPABILITY).ifPresent(cap ->
+                            cap.setDeathLoopTicksLeft(living.getEffect(InitEffects.DEATH_LOOP.get()).getDuration()));
+                }
             }
         }
     }

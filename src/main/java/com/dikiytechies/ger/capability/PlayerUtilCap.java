@@ -18,8 +18,12 @@ public class PlayerUtilCap implements INBTSerializable<CompoundNBT> {
         this.playerEntity.addEffect(new EffectInstance(InitEffects.DEATH_LOOP.get(), this.deathLoopTicksLeft, 0, false, false, true));
     }
 
+    public void setDeathLoopTicksLeft(int ticks) {
+        this.deathLoopTicksLeft = ticks;
+    }
+
     public void onClone(PlayerUtilCap old) {
-        this.deathLoopTicksLeft = old.deathLoopTicksLeft;
+        if (old.deathLoopTicksLeft != 0) this.deathLoopTicksLeft = old.deathLoopTicksLeft;
     }
 
 

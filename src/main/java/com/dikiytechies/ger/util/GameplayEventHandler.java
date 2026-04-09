@@ -5,6 +5,7 @@ import com.dikiytechies.ger.action.CounterAction;
 import com.dikiytechies.ger.action.effect.CounterEffect;
 import com.dikiytechies.ger.capability.PlayerUtilCap;
 import com.dikiytechies.ger.capability.PlayerUtilCapProvider;
+import com.dikiytechies.ger.entity.GerStandEntity;
 import com.dikiytechies.ger.init.InitEffects;
 import com.dikiytechies.ger.init.InitStandEffects;
 import com.dikiytechies.ger.network.AddonPackets;
@@ -84,10 +85,6 @@ public class GameplayEventHandler {
         if (!living.level.isClientSide()) {
             if (living.hasEffect(InitEffects.DEATH_LOOP.get()) && living.getEffect(InitEffects.DEATH_LOOP.get()).getDuration() > 0) {
                 event.setAmount(Float.MAX_VALUE);
-                if (living instanceof PlayerEntity) {
-                    living.getCapability(PlayerUtilCapProvider.CAPABILITY).ifPresent(cap ->
-                            cap.setDeathLoopTicksLeft(living.getEffect(InitEffects.DEATH_LOOP.get()).getDuration()));
-                }
             }
         }
     }
@@ -95,19 +92,38 @@ public class GameplayEventHandler {
     public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
         PlayerEntity player = event.getPlayer();
 
-        applyDeathLoopEffect(player);
+        continueDeathLoopEffect(player);
     }
 
-    private static void applyDeathLoopEffect(PlayerEntity player) {
+    private static void continueDeathLoopEffect(PlayerEntity player) {
         player.getCapability(PlayerUtilCapProvider.CAPABILITY).ifPresent(PlayerUtilCap::continueDeathLoop);
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onPlayerDeath(LivingDeathEvent event) {
-        if (event.getEntityLiving() instanceof PlayerEntity &&
-                event.getEntityLiving().hasEffect(InitEffects.DEATH_LOOP.get()) &&
-                event.getEntityLiving().getEffect(InitEffects.DEATH_LOOP.get()).getDuration() > 0) {
-            AddonPackets.sendToClient(new PlayerRespawnPacket(), (ServerPlayerEntity) event.getEntityLiving());
+        applyDeathLoopEffect(event);
+
+        if (event.getEntityLiving() instanceof ServerPlayerEntity) {
+            forceRespawn((ServerPlayerEntity) event.getEntityLiving());
+        }
+    }
+
+    private static void forceRespawn(ServerPlayerEntity player) {
+        if (player.hasEffect(InitEffects.DEATH_LOOP.get()) &&
+                player.getEffect(InitEffects.DEATH_LOOP.get()).getDuration() > 0) {
+            AddonPackets.sendToClient(new PlayerRespawnPacket(), player);
+        }
+    }
+
+    private static final int DEATH_LOOP_DURATION = 18000; // 15 mins
+
+    private static void applyDeathLoopEffect(LivingDeathEvent event) {
+        if (event.getEntityLiving() instanceof ServerPlayerEntity) {
+            event.getEntityLiving().getCapability(PlayerUtilCapProvider.CAPABILITY).ifPresent(cap -> {
+                int duration = event.getSource().getEntity() instanceof GerStandEntity?
+                        Math.max(cap.getDeathLoopTicksLeft(), DEATH_LOOP_DURATION): cap.getDeathLoopTicksLeft();
+                        cap.setDeathLoopTicksLeft(duration);
+            });
         }
     }
 }

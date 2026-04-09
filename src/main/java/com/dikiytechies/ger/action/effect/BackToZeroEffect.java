@@ -1,6 +1,6 @@
 package com.dikiytechies.ger.action.effect;
 
-import com.dikiytechies.ger.LevelBackToZeroTracker;
+import com.dikiytechies.ger.LevelReturnToZeroTracker;
 import com.dikiytechies.ger.init.InitSounds;
 import com.dikiytechies.ger.init.InitStandEffects;
 import com.github.standobyte.jojo.JojoModConfig;
@@ -28,7 +28,7 @@ public class BackToZeroEffect extends StandEffectInstance {
 
     @Override
     protected void start() {
-        LevelBackToZeroTracker worldEffects = LevelBackToZeroTracker.get(world);
+        LevelReturnToZeroTracker worldEffects = LevelReturnToZeroTracker.get(world);
         if (worldEffects != null) {
             worldEffects.activeBackToZeroEffects.add(this);
         }
@@ -42,7 +42,7 @@ public class BackToZeroEffect extends StandEffectInstance {
 
     @Override
     protected void stop() {
-        LevelBackToZeroTracker worldEffects = LevelBackToZeroTracker.get(world);
+        LevelReturnToZeroTracker worldEffects = LevelReturnToZeroTracker.get(world);
         if (worldEffects != null) {
             worldEffects.activeBackToZeroEffects.remove(this);
         }
@@ -71,7 +71,7 @@ public class BackToZeroEffect extends StandEffectInstance {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public static boolean cancelOnAbilityUse(Action action, IPower targetPower, LivingEntity target) {
         if (BANNED_ABILITIES.contains(action.getRegistryName())) {
-            LevelBackToZeroTracker worldEffects = LevelBackToZeroTracker.get(target.level);
+            LevelReturnToZeroTracker worldEffects = LevelReturnToZeroTracker.get(target.level);
             if (worldEffects != null) {
                 Vector3d targetPos = target.position();
                 double rangeSqr = JojoModConfig.getCommonConfigInstance(target.level.isClientSide()).timeStopChunkRange.get() * 16;

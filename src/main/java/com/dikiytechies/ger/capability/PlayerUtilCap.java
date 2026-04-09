@@ -1,6 +1,8 @@
 package com.dikiytechies.ger.capability;
 
 import com.dikiytechies.ger.init.InitEffects;
+import com.dikiytechies.ger.network.AddonPackets;
+import com.dikiytechies.ger.network.clientSide.PlayRespawnSoundPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -15,7 +17,9 @@ public class PlayerUtilCap implements INBTSerializable<CompoundNBT> {
     public PlayerUtilCap(PlayerEntity playerEntity) { this.playerEntity = playerEntity; }
 
     public void continueDeathLoop() {
-        this.playerEntity.addEffect(new EffectInstance(InitEffects.DEATH_LOOP.get(), this.deathLoopTicksLeft, 0, false, false, true));
+        this.playerEntity.addEffect(new EffectInstance(InitEffects.DEATH_LOOP.get(), this.deathLoopTicksLeft, 0, false, false, false));
+        if (this.deathLoopTicksLeft > 0 && playerEntity instanceof ServerPlayerEntity)
+            AddonPackets.sendToClient(new PlayRespawnSoundPacket(), (ServerPlayerEntity) playerEntity);
     }
 
     public void setDeathLoopTicksLeft(int ticks) {

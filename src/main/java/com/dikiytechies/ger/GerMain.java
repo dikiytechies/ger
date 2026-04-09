@@ -2,6 +2,7 @@ package com.dikiytechies.ger;
 
 import com.dikiytechies.ger.capability.CapabilityHandler;
 import com.dikiytechies.ger.init.AddonInits;
+import com.dikiytechies.ger.network.AddonPackets;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -28,6 +29,7 @@ public class GerMain {
 
     private void preInit(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
+            AddonPackets.init();
             CapabilityHandler.commonSetupRegister();
         });
     }

@@ -60,7 +60,7 @@
       "ger:stand/ger_cancel"
     ]
   },
-  "ger_respawn": {
+  "respawn": {
     "sounds": [
       "ger:misc/respawn"
     ]

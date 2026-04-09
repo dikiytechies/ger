@@ -13,9 +13,9 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class BackToZeroAction extends StandAction {
+public class ReturnToZeroAction extends StandAction {
 
-    public BackToZeroAction(StandAction.Builder builder) {
+    public ReturnToZeroAction(StandAction.Builder builder) {
         super(builder);
     }
 

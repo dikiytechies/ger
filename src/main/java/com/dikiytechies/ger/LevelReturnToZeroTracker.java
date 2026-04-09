@@ -10,20 +10,20 @@ import net.minecraft.world.storage.WorldSavedData;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LevelBackToZeroTracker extends WorldSavedData {
+public class LevelReturnToZeroTracker extends WorldSavedData {
     public static final String ID = "rotp_ger:back_to_zero_effects";
     public List<StandEffectInstance> activeBackToZeroEffects = new ArrayList<>();
     
-    public LevelBackToZeroTracker(String id) {
+    public LevelReturnToZeroTracker(String id) {
         super(id);
     }
     
     // capabilities are annoying, this is faster to set up
-    public static LevelBackToZeroTracker get(World level) {
+    public static LevelReturnToZeroTracker get(World level) {
         if (level instanceof ServerWorld) {
             ServerWorld serverLevel = (ServerWorld) level;
             DimensionSavedDataManager aaa = serverLevel.getChunkSource().getDataStorage();
-            return aaa.computeIfAbsent(() -> new LevelBackToZeroTracker(ID), ID);
+            return aaa.computeIfAbsent(() -> new LevelReturnToZeroTracker(ID), ID);
         }
         return null;
     }

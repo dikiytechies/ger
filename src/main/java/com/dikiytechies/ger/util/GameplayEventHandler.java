@@ -6,20 +6,21 @@ import com.dikiytechies.ger.action.effect.CounterEffect;
 import com.dikiytechies.ger.capability.PlayerUtilCap;
 import com.dikiytechies.ger.capability.PlayerUtilCapProvider;
 import com.dikiytechies.ger.init.InitEffects;
-import com.dikiytechies.ger.init.InitSounds;
 import com.dikiytechies.ger.init.InitStandEffects;
+import com.dikiytechies.ger.network.AddonPackets;
+import com.dikiytechies.ger.network.clientSide.PlayerRespawnPacket;
 import com.github.standobyte.jojo.action.stand.StandAction;
 import com.github.standobyte.jojo.init.ModStatusEffects;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
 import com.github.standobyte.jojo.power.impl.stand.StandEffectsTracker;
-import com.github.standobyte.jojo.util.mc.MCUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundCategory;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -98,9 +99,15 @@ public class GameplayEventHandler {
     }
 
     private static void applyDeathLoopEffect(PlayerEntity player) {
-        if (!player.level.isClientSide()) {
-            MCUtil.playSound(player.level, player, player, InitSounds.RESPAWN.get(), SoundCategory.PLAYERS, 1.0f, 1.0f, p -> true);
-            player.getCapability(PlayerUtilCapProvider.CAPABILITY).ifPresent(PlayerUtilCap::continueDeathLoop);
+        player.getCapability(PlayerUtilCapProvider.CAPABILITY).ifPresent(PlayerUtilCap::continueDeathLoop);
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void onPlayerDeath(LivingDeathEvent event) {
+        if (event.getEntityLiving() instanceof PlayerEntity &&
+                event.getEntityLiving().hasEffect(InitEffects.DEATH_LOOP.get()) &&
+                event.getEntityLiving().getEffect(InitEffects.DEATH_LOOP.get()).getDuration() > 0) {
+            AddonPackets.sendToClient(new PlayerRespawnPacket(), (ServerPlayerEntity) event.getEntityLiving());
         }
     }
 }

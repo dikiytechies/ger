@@ -1,9 +1,9 @@
 package com.dikiytechies.ger.init;
 
 import com.dikiytechies.ger.GerMain;
-import com.dikiytechies.ger.action.BackToZeroAction;
 import com.dikiytechies.ger.action.BeamAction;
 import com.dikiytechies.ger.action.CounterAction;
+import com.dikiytechies.ger.action.ReturnToZeroAction;
 import com.dikiytechies.ger.entity.GerStandEntity;
 import com.github.standobyte.jojo.action.Action;
 import com.github.standobyte.jojo.action.stand.*;
@@ -109,8 +109,8 @@ public class InitStands {
                     .resolveLevelToUnlock(2)
                     .partsRequired(StandInstance.StandPart.MAIN_BODY)));
 
-    public static final RegistryObject<BackToZeroAction> BACK_TO_ZERO_ACTION = ACTIONS.register("ger_back_to_zero",
-            () -> new BackToZeroAction(new StandAction.Builder()
+    public static final RegistryObject<ReturnToZeroAction> RETURN_TO_ZERO_ACTION = ACTIONS.register("ger_return_to_zero",
+            () -> new ReturnToZeroAction(new StandAction.Builder()
                     .cooldown(10)
                     .resolveLevelToUnlock(4)
                     .partsRequired(StandInstance.StandPart.MAIN_BODY)));
@@ -139,7 +139,7 @@ public class InitStands {
                                     GOLD_EXPERIENCE_LIFE_DETECTOR.get(),
                                     GOLD_EXPERIENCE_HEAL.get(),
                                     COUNTER_ACTION.get(),
-                                    BACK_TO_ZERO_ACTION.get()
+                                    RETURN_TO_ZERO_ACTION.get()
                             )
                             .defaultKey(ModStandsInit.GOLD_EXPERIENCE_CHOOSE_LIFEFORM.get(), "key.keyboard.c")
                             .setSurvivalGameplayPool(StandType.StandSurvivalGameplayPool.NON_ARROW)

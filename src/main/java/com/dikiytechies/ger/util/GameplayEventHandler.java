@@ -1,5 +1,6 @@
 package com.dikiytechies.ger.util;
 
+import com.dikiytechies.ger.GerConfig;
 import com.dikiytechies.ger.GerMain;
 import com.dikiytechies.ger.action.CounterAction;
 import com.dikiytechies.ger.action.effect.CounterEffect;
@@ -125,5 +126,10 @@ public class GameplayEventHandler {
                         cap.setDeathLoopTicksLeft(duration);
             });
         }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerLogout(PlayerEvent.PlayerLoggedOutEvent event) {
+        GerConfig.Common.SyncedValues.onPlayerLogout((ServerPlayerEntity) event.getPlayer());
     }
 }

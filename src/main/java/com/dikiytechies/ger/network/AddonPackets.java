@@ -1,8 +1,10 @@
 package com.dikiytechies.ger.network;
 
 import com.dikiytechies.ger.GerMain;
+import com.dikiytechies.ger.network.clientSide.CommonConfigPacket;
 import com.dikiytechies.ger.network.clientSide.PlayRespawnSoundPacket;
 import com.dikiytechies.ger.network.clientSide.PlayerRespawnPacket;
+import com.dikiytechies.ger.network.clientSide.ResetSyncedCommonConfigPacket;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
@@ -34,6 +36,12 @@ public class AddonPackets {
         channel.registerMessage(packetIndex++, PlayerRespawnPacket.class,
                 PlayerRespawnPacket::encode, PlayerRespawnPacket::decode, PlayerRespawnPacket::handle,
                 Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+        channel.registerMessage(packetIndex++, CommonConfigPacket.class,
+                CommonConfigPacket::encode, CommonConfigPacket::decode, CommonConfigPacket::handle,
+                Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+        channel.registerMessage(packetIndex++, ResetSyncedCommonConfigPacket.class,
+                ResetSyncedCommonConfigPacket::encode, ResetSyncedCommonConfigPacket::decode, ResetSyncedCommonConfigPacket::handle,
+                Optional.of(NetworkDirection.PLAY_TO_CLIENT));
     }
 
 
@@ -55,5 +63,4 @@ public class AddonPackets {
     public static void sendToClientsTrackingAndSelf(Object msg, Entity entity) {
         channel.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), msg);
     }
-
 }

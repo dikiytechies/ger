@@ -1,6 +1,6 @@
 package com.dikiytechies.ger.mixin;
 
-import com.dikiytechies.ger.action.effect.BackToZeroEffect;
+import com.dikiytechies.ger.action.effect.ReturnToZeroEffect;
 import com.github.standobyte.jojo.action.Action;
 import com.github.standobyte.jojo.action.ActionTarget;
 import com.github.standobyte.jojo.power.IPower;
@@ -23,7 +23,7 @@ public abstract class PowerCancelActionClickMixin implements IPower {
     
     @Inject(method = "clickAction", at = @At("HEAD"), cancellable = true)
     public void cancelActionClick(Action<?> action, boolean sneak, ActionTarget target, @Nullable PacketBuffer extraInput, CallbackInfoReturnable<Boolean> cir) {
-        if (BackToZeroEffect.cancelOnAbilityUse(action, this, user)) {
+        if (ReturnToZeroEffect.cancelOnAbilityUse(action, this, user)) {
             cir.setReturnValue(false);
         }
     }

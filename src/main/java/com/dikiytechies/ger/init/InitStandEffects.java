@@ -1,8 +1,8 @@
 package com.dikiytechies.ger.init;
 
 import com.dikiytechies.ger.GerMain;
-import com.dikiytechies.ger.action.effect.BackToZeroEffect;
 import com.dikiytechies.ger.action.effect.CounterEffect;
+import com.dikiytechies.ger.action.effect.ReturnToZeroEffect;
 import com.github.standobyte.jojo.action.stand.effect.StandEffectType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
@@ -16,6 +16,6 @@ public class InitStandEffects {
 
     public static final RegistryObject<StandEffectType<CounterEffect>> GER_COUNTER = STAND_EFFECTS.register("nullify_handler",
             () -> new StandEffectType<>(CounterEffect::new));
-    public static final RegistryObject<StandEffectType<BackToZeroEffect>> GER_BACK_TO_ZERO = STAND_EFFECTS.register("back_to_zero",
-            () -> new StandEffectType<>(BackToZeroEffect::new));
+    public static final RegistryObject<StandEffectType<ReturnToZeroEffect>> GER_BACK_TO_ZERO = STAND_EFFECTS.register("back_to_zero",
+            () -> new StandEffectType<>(ReturnToZeroEffect::new));
 }

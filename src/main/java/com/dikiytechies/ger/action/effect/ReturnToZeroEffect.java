@@ -20,17 +20,17 @@ import java.util.Iterator;
 
 import static com.dikiytechies.ger.init.AddonInits.BANNED_ABILITIES;
 
-public class BackToZeroEffect extends StandEffectInstance {
+public class ReturnToZeroEffect extends StandEffectInstance {
 
-    public BackToZeroEffect() { this(InitStandEffects.GER_BACK_TO_ZERO.get()); }
+    public ReturnToZeroEffect() { this(InitStandEffects.GER_BACK_TO_ZERO.get()); }
 
-    public BackToZeroEffect(@NotNull StandEffectType<?> effectType) { super(effectType); }
+    public ReturnToZeroEffect(@NotNull StandEffectType<?> effectType) { super(effectType); }
 
     @Override
     protected void start() {
         LevelReturnToZeroTracker worldEffects = LevelReturnToZeroTracker.get(world);
         if (worldEffects != null) {
-            worldEffects.activeBackToZeroEffects.add(this);
+            worldEffects.activeReturnToZeroEffects.add(this);
         }
     }
 
@@ -44,7 +44,7 @@ public class BackToZeroEffect extends StandEffectInstance {
     protected void stop() {
         LevelReturnToZeroTracker worldEffects = LevelReturnToZeroTracker.get(world);
         if (worldEffects != null) {
-            worldEffects.activeBackToZeroEffects.remove(this);
+            worldEffects.activeReturnToZeroEffects.remove(this);
         }
     }
 
@@ -78,7 +78,7 @@ public class BackToZeroEffect extends StandEffectInstance {
                 rangeSqr *= rangeSqr;
                 boolean cancel = false;
                 
-                Iterator<StandEffectInstance> effectsIter =  worldEffects.activeBackToZeroEffects.iterator();
+                Iterator<StandEffectInstance> effectsIter =  worldEffects.activeReturnToZeroEffects.iterator();
                 while (effectsIter.hasNext()) {
                     StandEffectInstance backToZeroEffect = effectsIter.next();
                     LivingEntity gerUser = backToZeroEffect.getStandUser();

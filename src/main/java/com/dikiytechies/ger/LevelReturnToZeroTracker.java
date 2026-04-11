@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LevelReturnToZeroTracker extends WorldSavedData {
-    public static final String ID = "rotp_ger:back_to_zero_effects";
-    public List<StandEffectInstance> activeBackToZeroEffects = new ArrayList<>();
+    public static final String ID = "rotp_ger:return_to_zero_effects";
+    public List<StandEffectInstance> activeReturnToZeroEffects = new ArrayList<>();
     
     public LevelReturnToZeroTracker(String id) {
         super(id);

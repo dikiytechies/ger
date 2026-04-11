@@ -78,6 +78,10 @@ public class GerConfig {
     }
 
     public static class Common {
+        public final ForgeConfigSpec.BooleanValue isTemporal;
+        public final ForgeConfigSpec.IntValue resolveDuration;
+        public final ForgeConfigSpec.IntValue resolveAmplifier;
+
         private boolean loaded = false;
 
         private Common(ForgeConfigSpec.Builder builder) {
@@ -89,7 +93,26 @@ public class GerConfig {
                 builder.push(mainPath);
             }
 
-
+            builder.push("Global Setting");
+            builder.comment("Settings for GER stand").push("Stand Settings");
+            isTemporal = builder
+                    .translation("ger.config.isTemporal")
+                    .comment("    Determines if Gold Experience Requiem will be removed after the resolve end",
+                            "    Default is to true.")
+                    .define("isTemporal", true);
+            resolveDuration = builder
+                    .translation("ger.config.resolveDuration")
+                    .comment("    Determines the time in ticks GER will be possessed",
+                            "    Default is to 2400 which is 2 minutes")
+                    .defineInRange("resolveDuration", 2400, 0, Integer.MAX_VALUE);
+            resolveAmplifier = builder
+                    .translation("ger.config.resolveAmplifier")
+                    .comment("    Determines how fast the resolve bar will go away while GER is in possession",
+                            "    This also determines GER starting abilities, keep it in mind",
+                            "    Default is to 5 which means it wouldn't go down")
+                    .defineInRange("resolveAmplifier", 5, 0, 5);
+            builder.pop();
+            builder.pop();
 
             if (mainPath != null) {
                 builder.pop();
@@ -105,17 +128,26 @@ public class GerConfig {
         }
 
         public static class SyncedValues {
+            private final boolean isTemporal;
+            private final int resolveDuration;
+            private final int resolveAmplifier;
 
             public SyncedValues(PacketBuffer buf) {
-
+                this.isTemporal = buf.readBoolean();
+                this.resolveDuration = buf.readInt();
+                this.resolveAmplifier = buf.readInt();
             }
 
             private SyncedValues(Common config) {
-
+                this.isTemporal = config.isTemporal.get();
+                this.resolveDuration = config.resolveDuration.get();
+                this.resolveAmplifier = config.resolveAmplifier.get();
             }
 
             public static void resetConfig() {
-
+                COMMON_SYNCED_TO_CLIENT.isTemporal.clearCache();
+                COMMON_SYNCED_TO_CLIENT.resolveDuration.clearCache();
+                COMMON_SYNCED_TO_CLIENT.resolveAmplifier.clearCache();
             }
 
             public static void syncWithClient(ServerPlayerEntity player) {
@@ -127,11 +159,15 @@ public class GerConfig {
             }
 
             public void writeToBuf(PacketBuffer buf) {
-
+                buf.writeBoolean(isTemporal);
+                buf.writeInt(resolveDuration);
+                buf.writeInt(resolveAmplifier);
             }
 
             public void changeConfigValues() {
-
+                COMMON_SYNCED_TO_CLIENT.isTemporal.set(isTemporal);
+                COMMON_SYNCED_TO_CLIENT.resolveDuration.set(resolveDuration);
+                COMMON_SYNCED_TO_CLIENT.resolveAmplifier.set(resolveAmplifier);
             }
         }
     }

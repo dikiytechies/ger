@@ -24,7 +24,7 @@ public class GerMain {
         modEventBus.register(this);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, GerConfig.commonSpec);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, GerConfig.clientSpec);
+        //ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, GerConfig.clientSpec);
 
         AddonInits.addonRegistries(modEventBus);
         AddonInits.vanillaRegistries(modEventBus);

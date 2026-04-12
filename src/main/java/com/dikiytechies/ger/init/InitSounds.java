@@ -24,6 +24,8 @@ public class InitSounds {
     public static RegistryObject<SoundEvent> GER_CANCEL = register("ger_cancel");
     public static RegistryObject<SoundEvent> RESPAWN = register("respawn");
 
+    public static RegistryObject<SoundEvent> GIORNO_GER = register("giorno_gold_experience_requiem");
+
     private static RegistryObject<SoundEvent> register(String regPath) {
         return SOUNDS.register(regPath, () -> new SoundEvent(new ResourceLocation(GerMain.MOD_ID, regPath)));
     }

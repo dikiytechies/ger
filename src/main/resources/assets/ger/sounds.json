@@ -11,6 +11,12 @@
       "jojo:stand/stand_unsummon"
     ]
   },
+  "giorno_gold_experience_requiem": {
+    "subtitle": "ger.subtitle.giorno_gold_experience_requiem",
+    "sounds": [
+      "ger:voice/giorno_gold_experience_requiem"
+    ]
+  },
   "ger_punch_light": {
     "subtitle": "jojo.subtitle.stand_attack_light",
     "sounds": [

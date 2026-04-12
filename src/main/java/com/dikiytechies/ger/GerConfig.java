@@ -173,8 +173,19 @@ public class GerConfig {
     }
 
     public static class Client {
-        private Client(ForgeConfigSpec.Builder builder) {
+        public final ForgeConfigSpec.BooleanValue isClassicShoutEnabled;
 
+        private Client(ForgeConfigSpec.Builder builder) {
+            builder.push("Client config");
+            builder.comment("Settings for GER stand").push("Stand Settings");
+            isClassicShoutEnabled = builder
+                    .translation("ger.config.isClassicShoutEnabled")
+                    .comment("    Determines if player would rather shout \"Gold Experience!\" or \"Gold Experience Requiem!\"",
+                            "    The false value stands for \"Gold Experience Requiem!\" variation, meanwhile the true is for \"Gold Experience!\"",
+                            "    Default is to false.")
+                    .define("isClassicShoutEnabled", false);
+            builder.pop();
+            builder.pop();
         }
     }
 }

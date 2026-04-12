@@ -151,7 +151,7 @@ public class InitStands {
                                     .durability(9.0)
                                     .precision(14.0)
                                     .build())
-                            .addSummonShout(ModSounds.GIORNO_GOLD_EXPERIENCE)
+                            .addSummonShout(InitSounds.GIORNO_GER)
                             .addOst(ModSounds.GOLD_EXPERIENCE_OST)
                             .build(),
 

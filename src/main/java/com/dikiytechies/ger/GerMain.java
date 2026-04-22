@@ -33,9 +33,9 @@ public class GerMain {
     }
 
     private void preInit(FMLCommonSetupEvent event) {
+        CapabilityHandler.commonSetupRegister();
         event.enqueueWork(() -> {
             AddonPackets.init();
-            CapabilityHandler.commonSetupRegister();
         });
     }
 

@@ -1,7 +1,7 @@
 package com.dikiytechies.ger.network.clientSide;
 
 import com.github.standobyte.jojo.client.ClientUtil;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -19,7 +19,7 @@ public class PlayerRespawnPacket {
 
     public static void handle(PlayerRespawnPacket msg, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            ClientPlayerEntity player = (ClientPlayerEntity) ClientUtil.getClientPlayer();
+            PlayerEntity player = ClientUtil.getClientPlayer();
             player.respawn();
         });
         ctx.get().setPacketHandled(true);

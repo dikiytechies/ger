@@ -1,5 +1,6 @@
 package com.dikiytechies.ger.action;
 
+import com.dikiytechies.ger.entity.GerStandEntity;
 import com.dikiytechies.ger.init.InitSounds;
 import com.dikiytechies.ger.util.BeamLifeformCreation;
 import com.github.standobyte.jojo.action.ActionConditionResult;
@@ -84,12 +85,15 @@ public class BeamAction extends StandEntityAction {
         double beamRange = 32.0;
         List<Entity> finalMetEntities = metEntities;
         RayTraceResult rayTrace = JojoModUtil.rayTrace(startPos, rayVec, beamRange, world, aimingEntity, EntityPredicates.NO_SPECTATORS.and(e -> e != ((StandEntity) power.getStandManifestation()) && !finalMetEntities.contains(e)), 0.0, stand.getPrecision());
-        Vector3d current = startPos;
-        double beamLength = rayTrace.getType() == RayTraceResult.Type.MISS? beamRange: rayTrace.distanceTo(stand);
-        for (double i = offset; i < offset + beamLength; i+=0.5) {
-            ((ServerWorld) world).sendParticles(ModParticles.CD_RESTORATION.get(), current.x, current.y, current.z, 1, 0.0, 0.0, 0.0, 0.01);
-            current = current.add(rayTrace.getLocation().subtract(startPos).normalize());
+        double beamLength = rayTrace.getType() == RayTraceResult.Type.MISS ? beamRange : rayTrace.distanceTo(stand);
+        Vector3d endPos = startPos.add(rayTrace.getLocation().subtract(startPos).normalize().scale(beamLength));
+        if (stand instanceof GerStandEntity) {
+            ((GerStandEntity) stand).fireBeam(endPos, 10);
         }
+//        for (double i = offset; i < offset + beamLength; i+=0.5) {
+//            ((ServerWorld) world).sendParticles(ModParticles.CD_RESTORATION.get(), current.x, current.y, current.z, 1, 0.0, 0.0, 0.0, 0.01);
+//            current = current.add(rayTrace.getLocation().subtract(startPos).normalize());
+//        }
         if (power.getUser() instanceof PlayerEntity){
             switch (rayTrace.getType()) {
                 case ENTITY:

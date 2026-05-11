@@ -97,7 +97,7 @@ public class InitStands {
                     .staminaCost(40)
                     .damage(5.0f)
                     .resolveLevelToUnlock(1)
-                    .standOffsetFront()
+//                    .standOffsetFront()
                     .standPose(BeamAction.SHOOT_ANIM)
                     .standAutoSummonMode(StandEntityAction.AutoSummonMode.MAIN_ARM)
                     .partsRequired(StandInstance.StandPart.ARMS)
